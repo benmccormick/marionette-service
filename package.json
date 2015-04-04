@@ -1,0 +1,22 @@
+{
+  "name": "marionette-service",
+  "version": "0.0.1",
+  "description": "Service Objects for Marionette Apps",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "backbone",
+    "marionette",
+    "service"
+  ],
+  "author": "Ben McCormick",
+  "license": "MIT",
+  "dependencies": {
+    "backbone.marionette": "^2.1.4",
+    "backbone.radio": "^0.9.0"
+  },
+  "devDependencies": {
+  }
+}
