@@ -1,4 +1,7 @@
 # Marionette Service
+[![Travis build status](http://img.shields.io/travis/benmccormick/marionette-service.svg?style=flat)](https://travis-ci.org/benmccormick/marionette-service)
+[![Code Climate](https://codeclimate.com/github/benmccormick/marionette-service/badges/gpa.svg)](https://codeclimate.com/github/benmccormick/marionette-service)
+[![Test Coverage](https://codeclimate.com/github/benmccormick/marionette-service/badges/coverage.svg)](https://codeclimate.com/github/benmccormick/marionette-service)
 
 This is a library to add "Service Objects" to Marionette 2.1.x.  Service Objects are an extension of Marionette.Object that
 allows declarative interaction with Backbone.Radio messages. Service Objects can respond to any of Radio's three message types; `Events`, `Commands` and `Requests`.  The syntax is similar to the `events` syntax from Backbone Views, and looks like this:
