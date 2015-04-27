@@ -4,8 +4,6 @@ var fs = require('fs');
 var del = require('del');
 var glob = require('glob');
 var path = require('path');
-var mkdirp = require('mkdirp');
-var isparta = require('isparta');
 var browserify = require('browserify');
 var runSequence = require('run-sequence');
 var source = require('vinyl-source-stream');
@@ -26,17 +24,6 @@ gulp.task('clean-tmp', function(cb) {
   del(['tmp'], cb);
 });
 
-// Send a notification when JSHint fails,
-// so that you know your changes didn't build
-function jshintNotify(file) {
-  if (!file.jshint) { return; }
-  return file.jshint.success ? false : 'JSHint failed';
-}
-
-function jscsNotify(file) {
-  if (!file.jscs) { return; }
-  return file.jscs.success ? false : 'JSRC failed';
-}
 
 function createLintTask(taskName, files) {
   gulp.task(taskName, function() {
@@ -44,9 +31,7 @@ function createLintTask(taskName, files) {
       .pipe($.plumber())
       .pipe($.jshint())
       .pipe($.jshint.reporter('jshint-stylish'))
-      .pipe($.notify(jshintNotify))
       .pipe($.jscs())
-      .pipe($.notify(jscsNotify))
       .pipe($.jshint.reporter('fail'));
   });
 }
@@ -57,18 +42,6 @@ createLintTask('lint-src', ['src/**/*.js']);
 // Lint our test code
 createLintTask('lint-test', ['test/**/*.js']);
 
-function getBanner(){
-return /**
- * Marionette Service
- *
- * Adds a Service Object to Marionette which allows an Object to
- * receive Backbone.Radio messages in a declarative fashion.
- *
- * @author Ben McCormick
- *
- */
-
-}
 
 // Build two versions of the library
 gulp.task('build', ['lint-src', 'clean'], function(done) {
@@ -115,7 +88,7 @@ gulp.task('browserify', function() {
 
 gulp.task('coverage', ['lint-src', 'lint-test'], function(done) {
   gulp.src(['src/*.js'])
-    .pipe($.istanbul({ instrumenter: isparta.Instrumenter }))
+    .pipe($.istanbul())
     .pipe($.istanbul.hookRequire())
     .on('finish', function() {
       return test()
@@ -143,7 +116,7 @@ gulp.task('build-in-sequence', function(callback) {
   runSequence(['lint-src', 'lint-test'], 'browserify', callback);
 });
 
-const watchFiles = ['src/**/*', 'test/**/*', 'package.json', '**/.jshintrc', '.jscsrc'];
+var watchFiles = ['src/**/*', 'test/**/*', 'package.json', '**/.jshintrc', '.jscsrc'];
 
 // Run the headless unit tests as you make changes.
 gulp.task('watch', function() {

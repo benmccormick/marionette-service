@@ -20,15 +20,15 @@
 })(this, function (Mn, Radio, _) {
   //Proxy Radio message handling to enable declarative interactions with radio channels
   var radioAPI = {
-      'radioEvents' : {
+      radioEvents : {
           startMethod: 'on',
           stopMethod: 'off'
       },
-      'radioCommands' : {
+      radioCommands : {
           startMethod: 'comply',
           stopMethod: 'stopComplying'
       },
-      'radioRequests' : {
+      radioRequests : {
           startMethod: 'reply',
           stopMethod: 'stopReplying'
       }
