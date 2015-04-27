@@ -91,6 +91,6 @@
       }
 
   });
-
+  Mn.Service = Service;
   return Service;
 });
