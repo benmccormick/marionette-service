@@ -1,22 +1,20 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-const fs = require('fs');
-const del = require('del');
-const glob = require('glob');
-const path = require('path');
-const mkdirp = require('mkdirp');
-const babelify = require('babelify');
-const isparta = require('isparta');
-const esperanto = require('esperanto');
-const browserify = require('browserify');
-const runSequence = require('run-sequence');
-const source = require('vinyl-source-stream');
+var fs = require('fs');
+var del = require('del');
+var glob = require('glob');
+var path = require('path');
+var mkdirp = require('mkdirp');
+var isparta = require('isparta');
+var browserify = require('browserify');
+var runSequence = require('run-sequence');
+var source = require('vinyl-source-stream');
 
-const manifest = require('./package.json');
-const config = manifest.babelBoilerplateOptions;
-const mainFile = manifest.main;
-const destinationFolder = path.dirname(mainFile);
-const exportFileName = path.basename(mainFile, path.extname(mainFile));
+var manifest = require('./package.json');
+var config = manifest.libraryOptions;
+var mainFile = manifest.main;
+var destinationFolder = path.dirname(mainFile);
+var exportFileName = path.basename(mainFile, path.extname(mainFile));
 
 // Remove the built files
 gulp.task('clean', function(cb) {
@@ -69,12 +67,12 @@ return /**
  * @author Ben McCormick
  *
  */
-  
+
 }
 
 // Build two versions of the library
 gulp.task('build', ['lint-src', 'clean'], function(done) {
-  
+
   var banner = ['/**',
     ' * Marionette Service',
     ' *',
@@ -85,40 +83,17 @@ gulp.task('build', ['lint-src', 'clean'], function(done) {
     ' *',
     ' */',
     ''].join('\n');
-  
-  esperanto.bundle({
-    base: 'src',
-    entry: config.entryFileName,
-  }).then(function(bundle) {
-    var res = bundle.toUmd({
-      banner: banner,
-      sourceMap: true,
-      sourceMapSource: config.entryFileName + '.js',
-      sourceMapFile: exportFileName + '.js',
-      name: config.exportVarName
-    });
-
-    // Write the generated sourcemap
-    mkdirp.sync(destinationFolder);
-    fs.writeFileSync(path.join(destinationFolder, exportFileName + '.js'), res.map.toString());
-
-    $.file(exportFileName + '.js', res.code, { src: true })
+    gulp.src(['src/' + config.entryFileName + '.js'])
       .pipe($.plumber())
-      .pipe($.sourcemaps.init({ loadMaps: true }))
-      .pipe($.babel({ blacklist: ['useStrict'] }))
-      .pipe($.sourcemaps.write('./', {addComment: false}))
+      .pipe($.header(banner))
       .pipe(gulp.dest(destinationFolder))
-      .pipe($.filter(['*', '!**/*.js.map']))
       .pipe($.rename(exportFileName + '.min.js'))
       .pipe($.uglifyjs({
         outSourceMap: true,
-        inSourceMap: destinationFolder + '/' + exportFileName + '.js.map',
       }))
-      .pipe($.header(banner))    
+      .pipe($.header(banner))
       .pipe(gulp.dest(destinationFolder))
       .on('end', done);
-  })
-  .catch(done);
 });
 
 // Bundle our app for our unit tests
@@ -126,10 +101,6 @@ gulp.task('browserify', function() {
   var testFiles = glob.sync('./test/unit/**/*');
   var allFiles = ['./test/setup/browserify.js'].concat(testFiles);
   var bundler = browserify(allFiles);
-  bundler.transform(babelify.configure({
-    sourceMapRelative: __dirname + '/src',
-    blacklist: ['useStrict']
-  }));
   var bundleStream = bundler.bundle();
   return bundleStream
     .on('error', function(err){
@@ -143,7 +114,6 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('coverage', ['lint-src', 'lint-test'], function(done) {
-  require('babel/register')({ modules: 'common' });
   gulp.src(['src/*.js'])
     .pipe($.istanbul({ instrumenter: isparta.Instrumenter }))
     .pipe($.istanbul.hookRequire())
@@ -160,8 +130,10 @@ function test() {
 };
 
 // Lint and run our tests
-gulp.task('test', ['lint-src', 'lint-test'], function() {
-  require('babel/register')({ modules: 'common' });
+// gulp.task('test', ['lint-src', 'lint-test'], function() {
+//   return test();
+// });
+gulp.task('test' , function() {
   return test();
 });
 

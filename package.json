@@ -26,20 +26,18 @@
   "author": "Ben McCormick",
   "license": "MIT",
   "dependencies": {
-    "backbone.marionette": "^2.1.4",
+    "backbone.marionette": "^2.4.1",
     "backbone.radio": "^0.9.0",
     "underscore": "1.8.3"
   },
   "devDependencies": {
-    "babel": "^5.0.0",
-    "babelify": "^6.0.0",
+    "backbone": "^1.1.2",
+    "jquery": "^1.11.2",
     "browserify": "^8.1.1",
     "chai": "^2.0.0",
     "del": "^1.1.1",
-    "esperanto": "^0.6.7",
     "glob": "^4.3.5",
     "gulp": "^3.8.10",
-    "gulp-babel": "^5.0.0",
     "gulp-file": "^0.2.0",
     "gulp-filter": "^2.0.0",
     "gulp-header": "^1.2.2",
@@ -63,7 +61,7 @@
     "sinon-chai": "^2.7.0",
     "vinyl-source-stream": "^1.0.0"
   },
-  "babelBoilerplateOptions": {
+  "libraryOptions": {
     "entryFileName": "marionette-service",
     "exportVarName": "Marionette.Service",
     "mochaGlobals": [
