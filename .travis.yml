@@ -21,4 +21,5 @@ install:
 script: "gulp coverage"
 after_success:
   - if [[ $MAINRUN == true ]]; then npm install -g codeclimate-test-reporter; fi
-  - if [[ $MAINRUN == true ]]; then CODECLIMATE_REPO_TOKEN=39acb5389290df5a87022baa6a6f8294484909b2bcc78e5bd1b534881ee768fd codeclimate < lcov.info; fi
+  - if [[ $MAINRUN == true ]]; then CODECLIMATE_REPO_TOKEN=39acb5389290df5a87022baa6a6f8294484909b2bcc78e5bd1b534881ee768fd; fi
+  - if [[ $MAINRUN == true ]]; then codeclimate < lcov.info; fi
