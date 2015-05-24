@@ -1,6 +1,6 @@
 {
   "name": "marionette-service",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Service Objects for Marionette Apps",
   "repository": {
     "type": "git",
