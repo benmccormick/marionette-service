@@ -31,6 +31,16 @@ radioCommands: {
 
 means that the Service will listen for the `doFoo` command on the `app` channel, and run the 'executeFoo' method.  When using Radio Commands and Requests with Objects, the same rules and restrictions that normal Radio use implies also apply here: a single handler can be associated with a command or request, either through manual use of the comply or reply functions, or through the Service API.
 
+## Installation via Package Manager
+
+### npm
+
+`npm install marionette-service`
+
+### bower
+
+`bower install marionette-service`
+
 
 ## Questions
 
