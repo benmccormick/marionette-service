@@ -72,7 +72,7 @@
   var Service = Mn.Object.extend({
 
       constructor: function() {
-          Mn.Object.apply(this);
+          Mn.Object.apply(this, [].slice.call(arguments));
           proxyRadioHandlers.apply(this);
       },
 
