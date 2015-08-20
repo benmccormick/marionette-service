@@ -14,9 +14,7 @@ describe('Marionette radio helpers', function() {
         radioEvents: {
           'foo bar' : this.clickStub1
         },
-        radioCommands: {
-          'bar foo' : this.clickStub2
-        },
+
         radioRequests: {
           'foo bar' : 'baz'
         },
@@ -27,7 +25,6 @@ describe('Marionette radio helpers', function() {
       this.service = new this.Service();
       Radio.channel('foo').trigger('bar');
       Radio.channel('foo').request('bar');
-      Radio.channel('bar').command('foo');
 
     });
 
@@ -35,9 +32,6 @@ describe('Marionette radio helpers', function() {
       expect(this.clickStub1).to.have.been.calledOnce;
     });
 
-    it('should support complying to radio commands declaratively', function() {
-      expect(this.clickStub2).to.have.been.calledOnce;
-    });
 
     it('should support replying to radio requests declaratively', function() {
       expect(this.clickStub3).to.have.been.calledOnce;
@@ -50,11 +44,6 @@ describe('Marionette radio helpers', function() {
       expect(this.clickStub1).to.have.been.calledOnce;
     });
 
-    it('should unsubscribe commands when the object is destroyed', function() {
-      this.service.destroy();
-      Radio.channel('bar').command('foo');
-      expect(this.clickStub2).to.have.been.calledOnce;
-    });
 
     it('should unsubscribe requests when the object is destroyed', function() {
       this.service.destroy();
@@ -69,12 +58,6 @@ describe('Marionette radio helpers', function() {
       expect(this.clickStub1).to.have.been.calledTwice;
     });
 
-    it('shouldn\'t overunsubscribe commands when the object is destroyed', function() {
-      this.service2 = new this.Service();
-      this.service.destroy();
-      Radio.channel('bar').command('foo');
-      expect(this.clickStub2).to.have.been.calledTwice;
-    });
 
     it('shouldn\'t overunsubscribe requests when the object is destroyed', function() {
       this.service2 = new this.Service();

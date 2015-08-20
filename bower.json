@@ -1,6 +1,6 @@
 {
   "name": "marionette-service",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "homepage": "https://github.com/benmccormick/marionette-service",
   "authors": [
     "Ben McCormick <ben.mccormick@alumni.duke.edu>"
@@ -30,8 +30,8 @@
     "package.json"
   ],
   "dependencies": {
-    "backbone.marionette": "~2.4.1",
-    "backbone.radio": "~0.9.0",
+    "backbone.marionette": "~2.4.2",
+    "backbone.radio": "~1.0.1",
     "underscore": "~1.8.3"
   }
 }

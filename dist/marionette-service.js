@@ -24,10 +24,7 @@
           startMethod: 'on',
           stopMethod: 'off'
       },
-      radioCommands : {
-          startMethod: 'comply',
-          stopMethod: 'stopComplying'
-      },
+
       radioRequests : {
           startMethod: 'reply',
           stopMethod: 'stopReplying'
