@@ -4,7 +4,7 @@
 [![Test Coverage](https://codeclimate.com/github/benmccormick/marionette-service/badges/coverage.svg)](https://codeclimate.com/github/benmccormick/marionette-service)
 
 This is a library to add "Service Objects" to Marionette 2.1.x.  Service Objects are an extension of Marionette.Object that
-allows declarative interaction with Backbone.Radio messages. Service Objects can respond to any of Radio's three message types; `Events`, `Commands` and `Requests`.  The syntax is similar to the `events` syntax from Backbone Views, and looks like this:
+allows declarative interaction with Backbone.Radio messages. Service Objects can respond to both of Radio's message types; `Events` and `Requests`.  The syntax is similar to the `events` syntax from Backbone Views, and looks like this:
 
 ```js
 radioEvents: {
@@ -12,9 +12,6 @@ radioEvents: {
   'books finish': 'onBooksFinish',
 },
 
-radioCommands: {
-  'app doFoo': 'executeFoo',
-},
 
 radioRequests: {
   'resources bar': 'getBar',
@@ -24,12 +21,12 @@ radioRequests: {
 where each hash value is in the form `'channel eventName' : 'handler'`.  So
 
 ```js
-radioCommands: {
+radioRequests: {
   'app doFoo': 'executeFoo',
 },
 ```
 
-means that the Service will listen for the `doFoo` command on the `app` channel, and run the 'executeFoo' method.  When using Radio Commands and Requests with Objects, the same rules and restrictions that normal Radio use implies also apply here: a single handler can be associated with a command or request, either through manual use of the comply or reply functions, or through the Service API.
+means that the Service will listen for the `doFoo` command on the `app` channel, and run the 'executeFoo' method.  When using Radio Requests with Objects, the same rules and restrictions that normal Radio use implies also apply here: a single handler can be associated with a request, either through manual use of the reply functions, or through the Service API.
 
 ## Installation via Package Manager
 
