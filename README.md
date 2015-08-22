@@ -12,10 +12,6 @@ radioEvents: {
   'books finish': 'onBooksFinish',
 },
 
-radioCommands: {
-  'app doFoo': 'executeFoo',
-},
-
 radioRequests: {
   'resources bar': 'getBar',
 },
