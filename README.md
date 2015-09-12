@@ -3,7 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/benmccormick/marionette-service/badges/gpa.svg)](https://codeclimate.com/github/benmccormick/marionette-service)
 [![Test Coverage](https://codeclimate.com/github/benmccormick/marionette-service/badges/coverage.svg)](https://codeclimate.com/github/benmccormick/marionette-service)
 
-This is a library to add "Service Objects" to Marionette 2.1.x.  Service Objects are an extension of Marionette.Object that
+This is a library to add "Service Objects" to Marionette 2.1+.  Service Objects are an extension of Marionette.Object that
 allows declarative interaction with Backbone.Radio messages. Service Objects can respond to both of Radio's message types; `Events` and `Requests`.  The syntax is similar to the `events` syntax from Backbone Views, and looks like this:
 
 ```js
@@ -43,7 +43,7 @@ means that the Service will listen for the `doFoo` command on the `app` channel,
 
 ### Wouldn't this be a good fit for Marionette Core?
 
-There is a [PR](https://github.com/marionettejs/backbone.marionette/pull/2431) to include this feature in Marionette v3.0.0.  This library is
+This feature will be included as part of Marionette.Object  in Marionette v3.0.0.  This library is
 intended as a way to use the feature in 2.1+ apps without having to wait for 3.0.
 
 ### Why add a separate Service class instead of shimming the future behavior on Mn.Object?
