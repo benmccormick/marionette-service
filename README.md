@@ -3,7 +3,13 @@
 [![Code Climate](https://codeclimate.com/github/benmccormick/marionette-service/badges/gpa.svg)](https://codeclimate.com/github/benmccormick/marionette-service)
 [![Test Coverage](https://codeclimate.com/github/benmccormick/marionette-service/badges/coverage.svg)](https://codeclimate.com/github/benmccormick/marionette-service)
 
-This is a library to add "Service Objects" to Marionette 2.1+.  Service Objects are an extension of Marionette.Object that
+
+### CHANGE FOR 1.0.0
+
+*With the 1.0.0 release, this library has been updated to be based off of Backbone.Model rather than Marionette to minimize the dependencies, and allow for the user of service objects without pulling in all of Marionette.*
+
+
+This is a library to add "Service Objects" to Marionette 2.1+.  Service Objects are an extension of Backbone.Model that
 allows declarative interaction with Backbone.Radio messages. Service Objects can respond to both of Radio's message types; `Events` and `Requests`.  The syntax is similar to the `events` syntax from Backbone Views, and looks like this:
 
 ```js

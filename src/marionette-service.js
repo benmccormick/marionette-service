@@ -2,13 +2,13 @@
 (function(global, factory) {
   'use strict';
   if(typeof exports === 'object' && typeof module !== 'undefined') {
-    module.exports = factory(require('backbone.marionette'), require('backbone.radio'), require('underscore')); //jshint ignore:line
+    module.exports = factory(require('backbone'), require('backbone.radio'), require('underscore')); //jshint ignore:line
   } else if(typeof define === 'function' && define.amd) {
-   define(['backbone.marionette', 'backbone.radio', 'underscore'], factory);
+   define(['backbone', 'backbone.radio', 'underscore'], factory);
   } else {
-   factory(global.Marionette, global.Backbone.Radio, global._);
+   factory(global.Backbone, global.Backbone.Radio, global._);
   }
-})(this, function (Mn, Radio, _) {
+})(this, function (Backbone, Radio, _) {
   //Proxy Radio message handling to enable declarative interactions with radio channels
   var radioAPI = {
       radioEvents : {
@@ -66,19 +66,19 @@
       return handler;
   }
 
-  var Service = Mn.Object.extend({
+  var Service = Backbone.Model.extend({
 
       constructor: function() {
-          Mn.Object.apply(this, [].slice.call(arguments));
+          Backbone.Model.apply(this, [].slice.call(arguments));
           proxyRadioHandlers.apply(this);
       },
 
       destroy: function() {
-          Mn.Object.prototype.destroy.apply(this);
+          Backbone.Model.prototype.destroy.apply(this);
           unproxyRadioHandlers.apply(this);
       }
 
   });
-  Mn.Service = Service;
+  Backbone.Service = Service;
   return Service;
 });
