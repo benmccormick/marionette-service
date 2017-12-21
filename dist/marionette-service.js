@@ -33,12 +33,12 @@
 
   function proxyRadioHandlers() {
       unproxyRadioHandlers.apply(this);
-      _.each(radioAPI, function(commands, radioType) {
+      _.forEach(radioAPI, function(commands, radioType) {
           var hash = _.result(this, radioType);
           if (!hash) {
               return;
           }
-          _.each(hash, function(handler, radioMessage) {
+          _.forEach(hash, function(handler, radioMessage) {
               handler = normalizeHandler.call(this, handler);
               if (!handler) {
                 return;
@@ -54,15 +54,15 @@
   function proxyRadioHandler(channel, radioType, messageName, handler) {
       var method = radioAPI[radioType].startMethod;
       this._radioChannels = this._radioChannels || [];
-      if(!_.contains(this._radioChannels, channel)) {
+      if(!_.includes(this._radioChannels, channel)) {
           this._radioChannels.push(channel);
       }
       Radio[method](channel, messageName, handler, this);
   }
 
   function unproxyRadioHandlers() {
-      _.each(this._radioChannels, function(channel) {
-          _.each(radioAPI,function(commands) {
+      _.forEach(this._radioChannels, function(channel) {
+          _.forEach(radioAPI,function(commands) {
               Radio[commands.stopMethod](channel, null, null, this);
           }, this);
       }, this);
