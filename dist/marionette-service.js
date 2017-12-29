@@ -47,8 +47,8 @@
                 channel = messageComponents[0],
                 messageName = messageComponents[1];
               proxyRadioHandler.call(this,channel, radioType, messageName, handler);
-          }, this);
-      }, this);
+          }.bind(this));
+      }.bind(this));
   }
 
   function proxyRadioHandler(channel, radioType, messageName, handler) {
@@ -64,8 +64,8 @@
       _.forEach(this._radioChannels, function(channel) {
           _.forEach(radioAPI,function(commands) {
               Radio[commands.stopMethod](channel, null, null, this);
-          }, this);
-      }, this);
+          }.bind(this));
+      }.bind(this));
   }
 
   function normalizeHandler(handler) {
