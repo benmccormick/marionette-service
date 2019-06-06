@@ -44,7 +44,7 @@ createLintTask('lint-test', ['test/**/*.js']);
 
 
 // Build two versions of the library
-gulp.task('build', ['lint-src', 'clean'], function(done) {
+gulp.task('build', gulp.series('lint-src', 'clean', function(done) {
 
   var banner = ['/**',
     ' * Marionette Service',
@@ -67,7 +67,7 @@ gulp.task('build', ['lint-src', 'clean'], function(done) {
       .pipe($.header(banner))
       .pipe(gulp.dest(destinationFolder))
       .on('end', done);
-});
+}));
 
 // Bundle our app for our unit tests
 gulp.task('browserify', function() {
@@ -86,7 +86,7 @@ gulp.task('browserify', function() {
     .pipe($.livereload());
 });
 
-gulp.task('coverage', ['lint-src', 'lint-test'], function(done) {
+gulp.task('coverage', gulp.series('lint-src', 'lint-test', function(done) {
   gulp.src(['src/*.js'])
     .pipe($.istanbul())
     .pipe($.istanbul.hookRequire())
@@ -95,7 +95,7 @@ gulp.task('coverage', ['lint-src', 'lint-test'], function(done) {
       .pipe($.istanbul.writeReports())
       .on('end', done);
     });
-});
+}));
 
 function test() {
   return gulp.src(['test/setup/node.js', 'test/unit/**/*.js'], {read: false})
@@ -124,10 +124,10 @@ gulp.task('watch', function() {
 });
 
 // Set up a livereload environment for our spec runner
-gulp.task('test-browser', ['build-in-sequence'], function() {
+gulp.task('test-browser', gulp.series('build-in-sequence', function() {
   $.livereload.listen({port: 35729, host: 'localhost', start: true});
   return gulp.watch(watchFiles, ['build-in-sequence']);
-});
+}));
 
 // An alias of test
-gulp.task('default', ['test']);
+gulp.task('default', gulp.series('test'));
